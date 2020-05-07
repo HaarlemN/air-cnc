@@ -12,13 +12,10 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
-mongoose.connect(
-  "mongodb+srv://haarlem:omnistack@omnistack9-f1dfb.mongodb.net/aircnc?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect("mongo_url", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const connectedUsers = {};
 

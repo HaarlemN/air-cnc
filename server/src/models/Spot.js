@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const SpotSchema = new mongoose.Schema(
   {
@@ -8,18 +8,18 @@ const SpotSchema = new mongoose.Schema(
     techs: [String],
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   },
   {
     toJSON: {
       virtuals: true,
     },
-  }
+  },
 );
 
-SpotSchema.virtual("thumbnail_url").get(function () {
+SpotSchema.virtual('thumbnail_url').get(function () {
   return `http://192.168.15.10:3001/files/${this.thumbnail}`;
 });
 
-module.exports = mongoose.model("Spot", SpotSchema);
+module.exports = mongoose.model('Spot', SpotSchema);

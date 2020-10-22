@@ -21,12 +21,12 @@ ul.spot_list li header {
 
 ul.spot_list li strong {
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 2.2rem;
     color: #444;
 }
 
 ul.spot_list li span {
-    font-size: 15px;
+    font-size: 1.4rem;
     color: #999;
 }
 
@@ -36,8 +36,8 @@ ul.notifications {
 }
 
 ul.notifications li {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
 }
 
 ul.notifications li button {
@@ -50,7 +50,8 @@ ul.notifications li button {
 
 ul.notifications li button.accept {
     color: #84c870;
-    transition: 0.3s;
+    font-size: 1.4rem;
+    transition: opacity 0.3s;
 }
 
 ul.notifications li button.accept:hover {
@@ -59,8 +60,16 @@ ul.notifications li button.accept:hover {
 
 ul.notifications li button.reject {
     color: #e55e5e;
+    font-size: 1.4rem;
+    transition: opacity 0.3s;
 }
 
 ul.notifications li button.reject:hover {
     opacity: 0.8;
+}
+
+@media (min-width: 700px) {
+    ul.spot_list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }

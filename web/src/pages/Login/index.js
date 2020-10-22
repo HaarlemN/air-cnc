@@ -1,21 +1,22 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import api from "../../services/api";
 
-export default function Login({ history }) {
+export default function Login() {
+  const history = useHistory();
+  
   const [email, setEmail] = useState("");
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
-    const response = await api.post("/sessions", { email });
+    api.post("/sessions", { email }).then((response) => {
+      const { _id } = response.data;
 
-    const { _id } = response.data;
+      localStorage.setItem("user_id", _id);
 
-    localStorage.setItem("user_id", _id);
-
-    if (response) {
       history.push("/dashboard");
-    }
+    });
   }
 
   return (

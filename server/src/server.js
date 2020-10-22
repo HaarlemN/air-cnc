@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
+const dotenvExpand = require('dotenv-expand');
+dotenvExpand(require('dotenv').config());
+
 const socketio = require('socket.io');
 const http = require('http');
 
@@ -12,13 +15,10 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
-mongoose.connect(
-  'mongodb://mongo:docker@localhost:27017/aircnc?authSource=admin',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const connectedUsers = {};
 
@@ -40,4 +40,6 @@ app.use(express.json());
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(routes);
 
-server.listen(3333);
+server.listen(process.env.PORT);
+// eslint-disable-next-line
+console.log('Server started 🚀');

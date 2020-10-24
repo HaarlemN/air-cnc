@@ -79,6 +79,9 @@ body, input, button {
   color: #444;
   font-weight: bold;
   margin-bottom: 8px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .content form label span {

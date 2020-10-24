@@ -1,9 +1,9 @@
-import React from "react";
-import "./assets/styles/global.css";
+import React from 'react';
+import './assets/styles/global.css';
 
-import Routes from "./routes";
+import Routes from './routes';
 
-import logo from "./assets/logo.svg";
+import logo from './assets/logo.svg';
 
 function App() {
   return (

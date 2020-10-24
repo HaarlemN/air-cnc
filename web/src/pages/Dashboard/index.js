@@ -1,55 +1,71 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import socketio from "socket.io-client";
-import api from "../../services/api";
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-import "./styles.css";
+import api from '../../services/api';
+import {
+  connect,
+  disconnect,
+  subscribeToNewBookings,
+} from '../../services/socket';
+
+import './styles.css';
 
 export default function Dashboard() {
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
 
-  const user_id = localStorage.getItem("user_id");
+  const user_id = localStorage.getItem('user_id');
 
-  const socket = useMemo(
-    () =>
-      socketio("http://localhost:3333", {
-        query: { user_id },
-      }),
-    [user_id]
-  );
+  const setupWebsocket = useCallback(() => {
+    disconnect();
+
+    connect(user_id);
+  }, [user_id]);
 
   useEffect(() => {
-    socket.on("booking_request", (data) => {
+    subscribeToNewBookings((data) => {
       setRequests([...requests, data]);
     });
-  }, [requests, socket]);
+  }, [requests]);
 
   useEffect(() => {
-    async function loadSpots() {
-      const user_id = localStorage.getItem("user_id");
-      const response = await api.get("/dashboard", {
+    let isActive = true;
+
+    api
+      .get('/dashboard', {
         headers: {
           user_id,
         },
+      })
+      .then((response) => {
+        if (isActive) {
+          setSpots(response.data);
+          setupWebsocket();
+        }
       });
 
-      setSpots(response.data);
-    }
-    loadSpots();
-  }, []);
+    return () => {
+      isActive = false;
+    };
+  }, [user_id, setupWebsocket]);
 
-  async function handleAccept(id) {
-    await api.post(`/bookings/${id}/approvals`);
+  const handleAccept = useCallback(
+    async (id) => {
+      await api.post(`/bookings/${id}/approvals`);
 
-    setRequests(requests.filter((request) => request._id !== id));
-  }
+      setRequests(requests.filter((request) => request._id !== id));
+    },
+    [requests],
+  );
 
-  async function handleReject(id) {
-    await api.post(`/bookings/${id}/rejections`);
+  const handleReject = useCallback(
+    async (id) => {
+      await api.post(`/bookings/${id}/rejections`);
 
-    setRequests(requests.filter((request) => request._id !== id));
-  }
+      setRequests(requests.filter((request) => request._id !== id));
+    },
+    [requests],
+  );
 
   return (
     <>
@@ -58,17 +74,20 @@ export default function Dashboard() {
           <li key={request._id}>
             <p>
               <strong>{request.user.email}</strong> está solicitando uma reserva
-              em <strong>{request.spot.company}</strong> para a data:{" "}
+              em
+              <strong>{request.spot.company}</strong> para a data:{' '}
               <strong>{request.date}</strong>
             </p>
 
             <button
+              type="button"
               className="accept"
               onClick={() => handleAccept(request._id)}
             >
               ACEITAR
             </button>
             <button
+              type="button"
               className="reject"
               onClick={() => handleReject(request._id)}
             >
@@ -80,17 +99,17 @@ export default function Dashboard() {
       <ul className="spot_list">
         {spots.map((spot) => (
           <li key={spot._id}>
-            <header
-              style={{ backgroundImage: `url(${spot.thumbnail_url})` }}
-            ></header>
+            <header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />
             <strong>{spot.company}</strong>
-            <span>{spot.price ? `R$${spot.price}/dia` : "GRATUITO"}</span>
+            <span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</span>
           </li>
         ))}
       </ul>
 
       <Link to="/new">
-        <button className="btn">Cadastrar novo Spot</button>
+        <button type="button" className="btn">
+          Cadastrar novo Spot
+        </button>
       </Link>
     </>
   );

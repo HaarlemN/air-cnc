@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AirCnC",
-    "slug": "mobile-app",
+    "name": "Aircnc",
+    "slug": "aircnc",
     "platforms": [
       "ios",
       "android",

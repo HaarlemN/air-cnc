@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import {
@@ -8,9 +8,23 @@ import {
   subscribeToNewBookings,
 } from '../../services/socket';
 
-import './styles.css';
+import {
+  SpotList,
+  SpotListItem,
+  Header,
+  Paragraph,
+  StrongText,
+  Span,
+  NotificationsList,
+  NotificationsListItem ,
+  NotificationsButton,
+} from './styles';
+
+import Button from '../../components/Button';
 
 export default function Dashboard() {
+  const history = useHistory();
+
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
 
@@ -69,48 +83,46 @@ export default function Dashboard() {
 
   return (
     <>
-      <ul className="notifications">
+      <NotificationsList>
         {requests.map((request) => (
-          <li key={request._id}>
-            <p>
-              <strong>{request.user.email}</strong> está solicitando uma reserva
+          <NotificationsListItem key={request._id}>
+            <Paragraph>
+              <StrongText>{request.user.email}</StrongText> está solicitando uma reserva
               em
-              <strong>{request.spot.company}</strong> para a data:{' '}
-              <strong>{request.date}</strong>
-            </p>
+              <StrongText>{request.spot.company}</StrongText> para a data:{' '}
+              <StrongText>{request.date}</StrongText>
+            </Paragraph>
 
-            <button
+            <NotificationsButton
               type="button"
               className="accept"
               onClick={() => handleAccept(request._id)}
             >
               ACEITAR
-            </button>
-            <button
+            </NotificationsButton>
+            <NotificationsButton
               type="button"
               className="reject"
               onClick={() => handleReject(request._id)}
             >
               REJEITAR
-            </button>
-          </li>
+            </NotificationsButton>
+          </NotificationsListItem>
         ))}
-      </ul>
-      <ul className="spot_list">
+      </NotificationsList>
+      <SpotList>
         {spots.map((spot) => (
-          <li key={spot._id}>
-            <header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />
-            <strong>{spot.company}</strong>
-            <span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</span>
-          </li>
+          <SpotListItem key={spot._id}>
+            <Header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />
+            <StrongText>{spot.company}</StrongText>
+            <Span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</Span>
+          </SpotListItem>
         ))}
-      </ul>
+      </SpotList>
 
-      <Link to="/new">
-        <button type="button" className="btn">
-          Cadastrar novo Spot
-        </button>
-      </Link>
+      <Button onClick={() => history.push('/new')}>
+        Cadastrar novo Spot
+      </Button>
     </>
   );
 }

@@ -1,6 +1,19 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
 import api from '../../services/api';
+
+import Button from '../../components/Button';
+import Form from '../../components/Form';
+import Input from '../../components/Input';
+
+const Paragraph = styled.p`
+  font-size: 2.3rem;
+  line-height: 3.1rem;
+  margin-bottom: 3.1rem;
+`;
+const StrongText = styled.strong``;
 
 export default function Login() {
   const history = useHistory();
@@ -24,29 +37,26 @@ export default function Login() {
 
   return (
     <>
-      <p>
-        Ofereça <strong>Spots</strong> para programadores e encontre{' '}
-        <strong>talentos</strong> para sua empresa
-      </p>
+      <Paragraph>
+        Ofereça <StrongText>Spots</StrongText> para programadores e encontre{' '}
+        <StrongText>talentos</StrongText> para sua empresa
+      </Paragraph>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          E-mail *
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Seu melhor e-mail"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          label="E-mail *"
+          name="email"
+          type="text"
+          required
+          placeholder="Seu melhor e-mail"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
 
-        <button className="btn" type="submit">
+        <Button type="submit">
           Entrar
-        </button>
-      </form>
+        </Button>
+      </Form>
     </>
   );
 }

@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from "react";
-import socketio from "socket.io-client";
-import { Alert, AsyncStorage } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { Alert } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
+
 import { Container, Logo, Content } from "./styles";
 
 import SpotList from "../../components/SpotList";
 
 import logo from "../../assets/logo.png";
 
+
+import {
+  connect,
+  disconnect,
+  subscribeToBookings,
+} from '../../services/socket';
+
 export default function List() {
   const [techs, setTechs] = useState([]);
 
-  useEffect(() => {
-    AsyncStorage.getItem("user_id").then((user_id) => {
-      const socket = socketio("http://192.168.15.10:3001", {
-        query: { user_id },
-      });
+  const setupWebsocket = useCallback(() => {
+    disconnect();
 
-      socket.on("booking_response", (booking) => {
+    AsyncStorage.getItem("user_id").then((user_id) => {
+      connect(user_id);
+
+      subscribeToBookings((booking) => {
         Alert.alert(
           `Sua reserva em ${booking.spot.company} para o dia ${
             booking.date
@@ -27,11 +35,20 @@ export default function List() {
   }, []);
 
   useEffect(() => {
+    let isActive = true;
+
     AsyncStorage.getItem("techs").then((storagedTechs) => {
       const techsArray = storagedTechs.split(",").map((tech) => tech.trim());
 
-      setTechs(techsArray);
+      if (isActive) {
+        setTechs(techsArray);
+        setupWebsocket();
+      }
     });
+
+    return () => {
+      isActive = false;
+    };
   }, []);
 
   return (

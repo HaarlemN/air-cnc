@@ -37,20 +37,24 @@ export default function Book({ route, navigation }) {
   async function handleSubmit() {
     const user_id = await AsyncStorage.getItem("user_id");
 
-    try {
-      await api.post(
-        `/spots/${id}/bookings`,
-        {
-          date,
-        },
-        {
-          headers: { user_id },
-        }
-      );
+    if (date) {
+      try {
+        await api.post(
+          `/spots/${id}/bookings`,
+          {
+            date,
+          },
+          {
+            headers: { user_id },
+          }
+        );
 
-      Alert.alert("Solicitação de reserva enviada.");
-      navigation.navigate("list");
-    } catch (err) {}
+        Alert.alert("Solicitação de reserva enviada.");
+        navigation.navigate("list");
+      } catch (err) {}
+    } else {
+      Alert.alert("Escolha uma data.");
+    }
   }
 
   function handleCancel() {

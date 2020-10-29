@@ -88,7 +88,7 @@ export default function Dashboard() {
           <NotificationsListItem key={request._id}>
             <Paragraph>
               <StrongText>{request.user.email}</StrongText> está solicitando uma reserva
-              em
+              em{' '}
               <StrongText>{request.spot.company}</StrongText> para a data:{' '}
               <StrongText>{request.date}</StrongText>
             </Paragraph>

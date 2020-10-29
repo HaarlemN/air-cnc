@@ -13,14 +13,19 @@ export const Label = styled.Text`
   margin-bottom: 8px;
 `;
 
-export const Input = styled.TextInput`
+export const DatePicker = styled.View`
   border: 1px solid #999;
   padding: 0 20px;
-  font-size: 16px;
-  color: #444;
-  height: 44px;
   margin-bottom: 20px;
   border-radius: 2px;
+  height: 44px;
+
+  justify-content: center;
+`;
+
+export const DateText = styled.Text`
+  font-size: 16px;
+  color: #444;
 `;
 
 export const Button = styled.TouchableOpacity`

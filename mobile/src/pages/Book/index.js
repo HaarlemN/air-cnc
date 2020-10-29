@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { AsyncStorage, Alert } from "react-native";
+import { Alert, TouchableNativeFeedback } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   Container,
   Label,
-  Input,
+  DatePicker,
+  DateText,
   Button,
   CancelButton,
   ButtonText,
@@ -13,7 +17,22 @@ import api from "../../services/api";
 
 export default function Book({ route, navigation }) {
   const [date, setDate] = useState("");
+  const [showDate, setShowDate] = useState(new Date());
+  const [viewDatePicker, setViewDatePicker] = useState(false);
   const { id } = route.params;
+
+  const locale = 'pt-BR';
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+  function handleDatePickerVisible() {
+    setViewDatePicker(!viewDatePicker);
+  }
+
+  function changeTimeState(event, selectedDate) {    
+    handleDatePickerVisible();
+    setShowDate(selectedDate || showDate);
+    setDate(selectedDate ? selectedDate.toLocaleDateString(locale, options) : date);
+  }
 
   async function handleSubmit() {
     const user_id = await AsyncStorage.getItem("user_id");
@@ -41,15 +60,20 @@ export default function Book({ route, navigation }) {
   return (
     <Container>
       <Label>Data de interesse *</Label>
-      <Input
-        placeholder="Qual data deseja reservar?"
-        placeholderTextColor="#999"
-        keyboardType="number-pad"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={date}
-        onChangeText={(text) => setDate(text)}
-      />
+      <TouchableNativeFeedback onPress={handleDatePickerVisible}>
+      <DatePicker>
+        <DateText>{date || 'Qual data deseja reservar?'}</DateText>
+      </DatePicker>
+      </TouchableNativeFeedback>
+      {viewDatePicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={showDate}
+          mode="date"
+          display="default"
+          onChange={changeTimeState}
+        />
+      )}
       <Button onPress={handleSubmit}>
         <ButtonText>Solicitar reserva</ButtonText>
       </Button>

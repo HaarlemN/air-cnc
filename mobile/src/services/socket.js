@@ -1,11 +1,11 @@
 import socketio from 'socket.io-client';
 
-const socket = socketio('http://10.255.1.79:3333', {
+const socket = socketio('http://host:port', {
   autoConnect: false,
 });
 
 function subscribeToBookings(subscribeFunction) {
-  socket.on('booking_request', subscribeFunction);
+  socket.on('booking_response', subscribeFunction);
 }
 
 function connect(user_id) {

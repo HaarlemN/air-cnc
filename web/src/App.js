@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Container>
-        <Logo src={logo} alt="AirCnC" />
+        <Logo src={logo} alt="Aircnc" />
 
         <Content>
           <Routes />

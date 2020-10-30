@@ -5,8 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "plugin:prettier/recommended",
         "airbnb",
+        "plugin:prettier/recommended",
         "prettier/react"
     ],
     "globals": {
@@ -38,11 +38,7 @@
             "allow": ["_id"]
           }
         ],
-        "object-curly-newline": [
-          "error",
-          {
-            "ImportDeclaration": "off"
-          }
-        ]
+        "react/prop-types": ["off"],
+        "react/jsx-props-no-spreading": ["off"]
     }
 }

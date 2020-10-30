@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Alert } from "react-native";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { Container, Logo, Content } from "./styles";
+import { Container, Logo, Content } from './styles';
 
-import SpotList from "../../components/SpotList";
+import SpotList from '../../components/SpotList';
 
-import logo from "../../assets/logo.png";
-
+import logo from '../../assets/logo.png';
 
 import {
   connect,
@@ -21,14 +20,14 @@ export default function List() {
   const setupWebsocket = useCallback(() => {
     disconnect();
 
-    AsyncStorage.getItem("user_id").then((user_id) => {
+    AsyncStorage.getItem('user_id').then(user_id => {
       connect(user_id);
 
-      subscribeToBookings((booking) => {
+      subscribeToBookings(booking => {
         Alert.alert(
           `Sua reserva em ${booking.spot.company} para o dia ${
             booking.date
-          } foi ${booking.approved ? "APROVADA" : "REJEITADA"}`
+          } foi ${booking.approved ? 'APROVADA' : 'REJEITADA'}`,
         );
       });
     });
@@ -37,8 +36,8 @@ export default function List() {
   useEffect(() => {
     let isActive = true;
 
-    AsyncStorage.getItem("techs").then((storagedTechs) => {
-      const techsArray = storagedTechs.split(",").map((tech) => tech.trim());
+    AsyncStorage.getItem('techs').then(storagedTechs => {
+      const techsArray = storagedTechs.split(',').map(tech => tech.trim());
 
       if (isActive) {
         setTechs(techsArray);
@@ -49,14 +48,14 @@ export default function List() {
     return () => {
       isActive = false;
     };
-  }, []);
+  }, [setupWebsocket]);
 
   return (
     <Container>
-      <Logo source={logo} style={{ resizeMode: "contain" }} />
+      <Logo source={logo} style={{ resizeMode: 'contain' }} />
 
       <Content>
-        {techs.map((tech) => (
+        {techs.map(tech => (
           <SpotList key={tech} tech={tech} />
         ))}
       </Content>

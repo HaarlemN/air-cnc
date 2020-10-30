@@ -1,10 +1,10 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
   padding: 70px 20px 0 20px;
-  
-  background-color: #FFF;
+
+  background-color: #fff;
 `;
 
 export const Label = styled.Text`

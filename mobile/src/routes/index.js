@@ -1,22 +1,23 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect, useMemo, useState } from 'react';
+import { Alert } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { AuthContext } from "./context";
+import { AuthContext } from './context';
 
-import api from "../services/api";
+import api from '../services/api';
 
-import Login from "../pages/Login";
-import List from "../pages/List";
-import Book from "../pages/Book";
+import Login from '../pages/Login';
+import List from '../pages/List';
+import Book from '../pages/Book';
 
 const Stack = createStackNavigator();
 
 export default function Routes() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
-    AsyncStorage.getItem("user_id").then((user) => {
+    AsyncStorage.getItem('user_id').then(user => {
       setStatus(user);
     });
   }, []);
@@ -25,20 +26,22 @@ export default function Routes() {
     return {
       signIn: async (email, techs) => {
         try {
-          const response = await api.post("/sessions", {
+          const response = await api.post('/sessions', {
             email,
           });
 
           const { _id } = response.data;
 
-          await AsyncStorage.setItem("user_id", _id);
-          await AsyncStorage.setItem("techs", techs);
+          await AsyncStorage.setItem('user_id', _id);
+          await AsyncStorage.setItem('techs', techs);
           setStatus(_id);
-        } catch (err) {}
+        } catch (err) {
+          Alert.alert('Falha ao iniciar sessão');
+        }
       },
       signOut: () => {},
     };
-  });
+  }, []);
 
   return (
     <AuthContext.Provider value={authContext}>

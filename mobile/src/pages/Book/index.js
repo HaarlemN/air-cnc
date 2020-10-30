@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Alert, TouchableNativeFeedback } from "react-native";
+import React, { useState } from 'react';
+import { Alert, TouchableNativeFeedback } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -11,12 +12,15 @@ import {
   Button,
   CancelButton,
   ButtonText,
-} from "./styles";
+} from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-export default function Book({ route, navigation }) {
-  const [date, setDate] = useState("");
+export default function Book() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const [date, setDate] = useState('');
   const [showDate, setShowDate] = useState(new Date());
   const [viewDatePicker, setViewDatePicker] = useState(false);
   const { id } = route.params;
@@ -28,14 +32,16 @@ export default function Book({ route, navigation }) {
     setViewDatePicker(!viewDatePicker);
   }
 
-  function changeTimeState(event, selectedDate) {    
+  function changeTimeState(event, selectedDate) {
     handleDatePickerVisible();
     setShowDate(selectedDate || showDate);
-    setDate(selectedDate ? selectedDate.toLocaleDateString(locale, options) : date);
+    setDate(
+      selectedDate ? selectedDate.toLocaleDateString(locale, options) : date,
+    );
   }
 
   async function handleSubmit() {
-    const user_id = await AsyncStorage.getItem("user_id");
+    const user_id = await AsyncStorage.getItem('user_id');
 
     if (date) {
       try {
@@ -46,28 +52,30 @@ export default function Book({ route, navigation }) {
           },
           {
             headers: { user_id },
-          }
+          },
         );
 
-        Alert.alert("Solicitação de reserva enviada.");
-        navigation.navigate("list");
-      } catch (err) {}
+        Alert.alert('Solicitação de reserva enviada.');
+        navigation.navigate('list');
+      } catch (err) {
+        Alert.alert('Falha ao enviar solicitação.');
+      }
     } else {
-      Alert.alert("Escolha uma data.");
+      Alert.alert('Escolha uma data.');
     }
   }
 
   function handleCancel() {
-    navigation.navigate("list");
+    navigation.navigate('list');
   }
 
   return (
     <Container>
       <Label>Data de interesse *</Label>
       <TouchableNativeFeedback onPress={handleDatePickerVisible}>
-      <DatePicker>
-        <DateText>{date || 'Qual data deseja reservar?'}</DateText>
-      </DatePicker>
+        <DatePicker>
+          <DateText>{date || 'Qual data deseja reservar?'}</DateText>
+        </DatePicker>
       </TouchableNativeFeedback>
       {viewDatePicker && (
         <DateTimePicker

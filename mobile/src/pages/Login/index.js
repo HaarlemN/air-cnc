@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 
 import {
   Container,
@@ -8,15 +8,15 @@ import {
   Input,
   Button,
   ButtonText,
-} from "./styles";
+} from './styles';
 
-import { AuthContext } from "../../routes/context";
+import { AuthContext } from '../../routes/context';
 
-import logo from "../../assets/logo.png";
+import logo from '../../assets/logo.png';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [techs, setTechs] = useState("");
+  const [email, setEmail] = useState('');
+  const [techs, setTechs] = useState('');
 
   const { signIn } = useContext(AuthContext);
 
@@ -37,7 +37,7 @@ export default function Login() {
           autoCapitalize="none"
           autoCorrect={false}
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={text => setEmail(text)}
         />
         <Label>Tecnologias *</Label>
         <Input
@@ -46,7 +46,7 @@ export default function Login() {
           autoCapitalize="words"
           autoCorrect={false}
           value={techs}
-          onChangeText={(text) => setTechs(text)}
+          onChangeText={text => setTechs(text)}
         />
 
         <Button onPress={handleSignIn}>

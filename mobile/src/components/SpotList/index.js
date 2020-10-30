@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   Title,
@@ -11,27 +11,39 @@ import {
   Price,
   Button,
   ButtonText,
-} from "./styles";
+} from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function SpotList({ tech }) {
   const [spots, setSpots] = useState([]);
 
-  const navigation = useNavigation();
-  useEffect(() => {
-    async function loadSpots() {
-      const response = await api.get("/spots", {
+  const loadSpots = useCallback(
+    async isActive => {
+      const response = await api.get('/spots', {
         params: { tech },
       });
 
-      setSpots(response.data);
-    }
-    loadSpots();
-  }, []);
+      if (isActive) {
+        setSpots(response.data);
+      }
+    },
+    [tech],
+  );
+
+  const navigation = useNavigation();
+  useEffect(() => {
+    let isActive = true;
+
+    loadSpots(isActive);
+
+    return () => {
+      isActive = false;
+    };
+  }, [loadSpots]);
 
   function handleNavigate(id) {
-    navigation.navigate("book", { id });
+    navigation.navigate('book', { id });
   }
 
   return (
@@ -42,17 +54,17 @@ export default function SpotList({ tech }) {
 
       <List
         data={spots}
-        keyExtractor={(spot) => spot._id}
+        keyExtractor={spot => spot._id}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <ListItem>
             <Thumbnail
-              style={{ resizeMode: "cover" }}
+              style={{ resizeMode: 'cover' }}
               source={{ uri: item.thumbnail_url }}
             />
             <Company>{item.company}</Company>
-            <Price>{item.price ? `R$${item.price}` : "GRATUITO"}</Price>
+            <Price>{item.price ? `R$${item.price}` : 'GRATUITO'}</Price>
             <Button onPress={() => handleNavigate(item._id)}>
               <ButtonText>Solicitar reserva</ButtonText>
             </Button>

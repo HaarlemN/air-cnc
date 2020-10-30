@@ -1,11 +1,11 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
 
-  background-color: #FFF;
+  background-color: #fff;
 `;
 
 export const Logo = styled.Image``;

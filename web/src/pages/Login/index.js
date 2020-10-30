@@ -21,10 +21,10 @@ export default function Login() {
   const [email, setEmail] = useState('');
 
   const handleSubmit = useCallback(
-    (event) => {
+    event => {
       event.preventDefault();
 
-      api.post('/sessions', { email }).then((response) => {
+      api.post('/sessions', { email }).then(response => {
         const { _id } = response.data;
 
         localStorage.setItem('user_id', _id);
@@ -50,7 +50,7 @@ export default function Login() {
           required
           placeholder="Seu melhor e-mail"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={event => setEmail(event.target.value)}
         />
 
         <Button type="submit">Entrar</Button>

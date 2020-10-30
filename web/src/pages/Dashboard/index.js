@@ -37,7 +37,7 @@ export default function Dashboard() {
   }, [user_id]);
 
   useEffect(() => {
-    subscribeToNewBookings((data) => {
+    subscribeToNewBookings(data => {
       setRequests([...requests, data]);
     });
   }, [requests]);
@@ -51,7 +51,7 @@ export default function Dashboard() {
           user_id,
         },
       })
-      .then((response) => {
+      .then(response => {
         if (isActive) {
           setSpots(response.data);
           setupWebsocket();
@@ -64,19 +64,19 @@ export default function Dashboard() {
   }, [user_id, setupWebsocket]);
 
   const handleAccept = useCallback(
-    async (id) => {
+    async id => {
       await api.post(`/bookings/${id}/approvals`);
 
-      setRequests(requests.filter((request) => request._id !== id));
+      setRequests(requests.filter(request => request._id !== id));
     },
     [requests],
   );
 
   const handleReject = useCallback(
-    async (id) => {
+    async id => {
       await api.post(`/bookings/${id}/rejections`);
 
-      setRequests(requests.filter((request) => request._id !== id));
+      setRequests(requests.filter(request => request._id !== id));
     },
     [requests],
   );
@@ -84,7 +84,7 @@ export default function Dashboard() {
   return (
     <>
       <NotificationsList>
-        {requests.map((request) => (
+        {requests.map(request => (
           <NotificationsListItem key={request._id}>
             <Paragraph>
               <StrongText>{request.user.email}</StrongText> está solicitando uma
@@ -111,7 +111,7 @@ export default function Dashboard() {
         ))}
       </NotificationsList>
       <SpotList>
-        {spots.map((spot) => (
+        {spots.map(spot => (
           <SpotListItem key={spot._id}>
             <Header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />
             <StrongText>{spot.company}</StrongText>

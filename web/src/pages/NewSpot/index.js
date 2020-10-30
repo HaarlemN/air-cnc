@@ -26,7 +26,7 @@ export default function NewSpot() {
   );
 
   const handleSubmit = useCallback(
-    async (event) => {
+    async event => {
       event.preventDefault();
       const data = new FormData();
       const user_id = localStorage.getItem('user_id');
@@ -56,7 +56,7 @@ export default function NewSpot() {
         source={camera}
         style={{ backgroundImage: `url(${preview})` }}
         className={thumbnail ? 'has-thumbnail' : ''}
-        onChange={(event) => setThumbnail(event.target.files[0])}
+        onChange={event => setThumbnail(event.target.files[0])}
       />
 
       <Input
@@ -65,7 +65,7 @@ export default function NewSpot() {
         placeholder="Sua empresa"
         required
         value={company}
-        onChange={(event) => setCompany(event.target.value)}
+        onChange={event => setCompany(event.target.value)}
       />
 
       <Input
@@ -78,7 +78,7 @@ export default function NewSpot() {
         placeholder="Quais tecnologias usam?"
         required
         value={techs}
-        onChange={(event) => setTechs(event.target.value)}
+        onChange={event => setTechs(event.target.value)}
       />
 
       <Input
@@ -90,7 +90,7 @@ export default function NewSpot() {
         name="price"
         placeholder="Valor cobrado por dia"
         value={price}
-        onChange={(event) => setPrice(event.target.value)}
+        onChange={event => setPrice(event.target.value)}
       />
 
       <Button type="submit">Cadastrar</Button>

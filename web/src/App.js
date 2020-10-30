@@ -14,7 +14,6 @@ function App() {
         <Logo src={logo} alt="AirCnC" />
 
         <Content>
-
           <Routes />
         </Content>
       </Container>

@@ -21,7 +21,8 @@ export const MyInput = styled.input`
   font-size: 1.6rem;
   transition: border 0.3s;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border: 1px solid #f05a5b;
   }
 `;

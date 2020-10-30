@@ -16,7 +16,7 @@ import {
   StrongText,
   Span,
   NotificationsList,
-  NotificationsListItem ,
+  NotificationsListItem,
   NotificationsButton,
 } from './styles';
 
@@ -87,9 +87,9 @@ export default function Dashboard() {
         {requests.map((request) => (
           <NotificationsListItem key={request._id}>
             <Paragraph>
-              <StrongText>{request.user.email}</StrongText> está solicitando uma reserva
-              em{' '}
-              <StrongText>{request.spot.company}</StrongText> para a data:{' '}
+              <StrongText>{request.user.email}</StrongText> está solicitando uma
+              reserva em
+              <StrongText>{request.spot.company}</StrongText> para a
               <StrongText>{request.date}</StrongText>
             </Paragraph>
 
@@ -120,9 +120,7 @@ export default function Dashboard() {
         ))}
       </SpotList>
 
-      <Button onClick={() => history.push('/new')}>
-        Cadastrar novo Spot
-      </Button>
+      <Button onClick={() => history.push('/new')}>Cadastrar novo Spot</Button>
     </>
   );
 }

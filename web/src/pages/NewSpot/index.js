@@ -69,7 +69,11 @@ export default function NewSpot() {
       />
 
       <Input
-        label={(<>Tecnologias * <Span>(separadas por vírgula)</Span></>)}
+        label={
+          <>
+            Tecnologias * <Span>(separadas por vírgula)</Span>
+          </>
+        }
         name="techs"
         placeholder="Quais tecnologias usam?"
         required
@@ -78,16 +82,18 @@ export default function NewSpot() {
       />
 
       <Input
-        label={(<>Valor da diária <Span>(em branco para GRATUITO)</Span></>)}
+        label={
+          <>
+            Valor da diária <Span>(em branco para GRATUITO)</Span>
+          </>
+        }
         name="price"
         placeholder="Valor cobrado por dia"
         value={price}
         onChange={(event) => setPrice(event.target.value)}
       />
 
-      <Button type="submit">
-        Cadastrar
-      </Button>
+      <Button type="submit">Cadastrar</Button>
     </Form>
   );
 }

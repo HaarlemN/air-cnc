@@ -53,9 +53,7 @@ export default function Login() {
           onChange={(event) => setEmail(event.target.value)}
         />
 
-        <Button type="submit">
-          Entrar
-        </Button>
+        <Button type="submit">Entrar</Button>
       </Form>
     </>
   );

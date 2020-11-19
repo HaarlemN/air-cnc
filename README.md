@@ -1,2 +1,3 @@
-# air-cnc
-Projeto criado durante a Semana OmniStack 9 realizada pela Rocketseat, inclui api em NodeJS, web em ReactJS e mobile em React-Native.
+<p align="center">
+  <img src=".github/logo.png" alt="Aircnc" />
+</p>

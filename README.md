@@ -140,7 +140,7 @@ have the IP to your API
 ```
 <!-- License -->
 ## License
-This project is licensed under the [MIT License]()
+This project is licensed under the [MIT License](LICENSE)
 
 ## Contact
 >You can connect and talk to me through my [LinkedIn](https://www.linkedin.com/in/haarlem-notoroberto/).

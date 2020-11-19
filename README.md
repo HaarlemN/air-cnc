@@ -126,8 +126,6 @@ _Attention: Make sure that **"web/src/services/api.js"** and **"web/src/services
 
 _Attention: Make sure that **"mobile/src/services/api.js"** and **"mobile/src/services/socket.js"** have the IP and the port on which your backend server is running._
 
-have the IP to your API
-
 ```sh
   # Access the mobile folder
   cd mobile

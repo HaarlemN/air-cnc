@@ -13,6 +13,7 @@ const Paragraph = styled.p`
   line-height: 3.1rem;
   margin-bottom: 3.1rem;
 `;
+
 const StrongText = styled.strong``;
 
 export default function Login() {

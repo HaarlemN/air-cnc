@@ -3,8 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 import background from '../background.jpg';
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
   :root {
     font-size: 60%;
   }

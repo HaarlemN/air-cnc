@@ -60,6 +60,7 @@ The scheduling works in real time, as soon as a user requests an appointment the
 - Eslint
 - Prettier
 - React
+- React Router Dom
 - Socket.io
 - Styled-components
 
@@ -69,6 +70,7 @@ The scheduling works in real time, as soon as a user requests an appointment the
 - Eslint
 - Expo
 - Prettier
+- React Navigation
 - React-Native
 - Socket.io
 - Styled-components

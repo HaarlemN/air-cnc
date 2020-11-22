@@ -10,7 +10,7 @@
 >This project was developed for study during the "_Semana Omnistack #9_" workshop conducted by Rocketseat, it contains my own modifications to improve the project.
 
 <p align="center">
-  <img alt="Happy" src=".github/aircnc.png" width="100%">
+  <img alt="Aircnc" src=".github/aircnc.png" width="100%">
 </p>
 
 <!-- Table of Contents -->

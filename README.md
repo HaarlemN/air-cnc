@@ -143,4 +143,4 @@ _Attention: Make sure that **"mobile/src/services/api.js"** and **"mobile/src/se
 This project is licensed under the [MIT License](LICENSE)
 
 ## Contact
->You can connect and talk to me through my [LinkedIn](https://www.linkedin.com/in/haarlem-notoroberto/).
+You can connect and talk to me through my [LinkedIn](https://www.linkedin.com/in/haarlem-notoroberto/).
